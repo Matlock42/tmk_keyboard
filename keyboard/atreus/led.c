@@ -30,60 +30,56 @@ void led_layer_set(uint32_t state) {
     // LED 0 is on PB1
     // LED 1 is on PB3
     
+    dprint("Updating LEDs ...");dprintln();
     // set pins as output
-    DDRB |= (1<<DDB0); //led 0 (B0)
-    DDRB |= (1<<DDB1); //led 1 (B3)
+    DDRB |= (1<<DDB1); //led 0 (B1)
+    DDRB |= (1<<DDB3); //led 1 (B3)
+    
+    dprint("LED Output pins set.");dprintln();
         
-    // LEDs for Layer 0 active
-    // led 0 -> off
-    // led 1 -> off
-        
-    // LEDs for Layer 1 active
-    // led 0 -> on
-    // led 1 -> off
+    /***************************
+    * led 0 -> off
+    * led 1 -> off
+    * LEDs for Layer 0 active
+    *  
+    * LEDs for Layer 1 active
+    * led 0 -> on
+    * led 1 -> off
+    * 
+    * LEDs for Layer 2 active
+    * led 0 -> off
+    * led 1 -> on
+    * 
+    * LEDs for Layer 3 active
+    * led 0 -> on
+    * led 1 -> on
+    ****************************/
     
-    // LEDs for Layer 2 active
-    // led 0 -> off
-    // led 1 -> on
+    dprint("Setting states ...");dprintln();
+    // first, set both low
+    PORTB &= ~(1<<PB1);
+    PORTB &= ~(1<<PB3);
     
-    // LEDs for Layer 3 active
-    // led 0 -> on
-    // led 1 -> on
+    switch (state) {
+        case 0:
+            // leave both off
+            break;
+        case 1:
+            // turn on led 0
+            PORTB |= (1<<PB1);
+            break;
+        case 2:
+            // turn on led 1
+            PORTB |= (1<<PB3);
+            break;
+        case 3:
+            // turn both on
+            PORTB |= (1<<PB1);
+            PORTB |= (1<<PB3);
+            break;
+        default:
+            break;
+    }
     
-    /*
-    if ((1<<1 & state) != 0) {
-        //dprint("Layer 2: on\n");
-        PORTB |= (1<<7);
-    } else {
-        //dprint("Layer 2: off\n");
-        PORTB &= ~(1<<7);
-    }
-	
-     // Led for Layer 4
-    if ((1<<4 & state) != 0) {
-        //dprint("Layer 2: on\n");
-        PORTB |= (1<<3);
-    } else {
-        //dprint("Layer 2: off\n");
-        PORTB &= ~(1<<3);
-    }
-	
-    // Led for Layer 2
-    if ((1<<2 & state) != 0) {
-        //dprint("Layer 2: on\n");
-        PORTB |= (1<<2);
-    } else {
-        //dprint("Layer 2: off\n");
-        PORTB &= ~(1<<2);
-    }
-
-    // Led for Layer 3
-    if ((1<<3 & state) != 0) {
-        //dprint("Layer 2: on\n");
-        PORTB |= (1<<1);
-    } else {
-        //dprint("Layer 2: off\n");
-        PORTB &= ~(1<<1);
-    }
-    */
+    dprint("LED updating complete.");dprintln();
 }
