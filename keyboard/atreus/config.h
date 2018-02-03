@@ -24,7 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT_ID      0xA1E5
 #define DEVICE_VER      36
 #define MANUFACTURER    technomancy
-#define PRODUCT         Atreus
+#define PRODUCT         Atreus 2u
 #define DESCRIPTION     Atreus mechanical travel keyboard
 
 /* key matrix size */
